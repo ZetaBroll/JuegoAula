@@ -1,4 +1,5 @@
-from code.Game import Game
+from code.game import Game
+import pygame
 
 game = Game()
-game.run() #         print('Loop ended')
+game.run() 
