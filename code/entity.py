@@ -1,11 +1,16 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+import pygame.image
+from abc import ABC, abstractmethod
 
-class Entity:
-    def __init__(self):
-        self.name = None
-        self.surf = None
-        self.rect = None
 
-    def move(self, ):
-        pass
+class Entity(ABC):
+    def __init__(self, name: str, position: tuple):
+        self.name = name
+        self.surf = pygame.image.load('asset/' + name + '.png')  # Load the image from the assets folder
+        self.rect = self.surf.get_rect(left=position[0], top=position[1])
+        self.speed = 0  # Get the rectangle
+
+@abstractmethod  # é um decorator que indica que este método deve ser implementado por subclasses
+def move(self):
+    pass
