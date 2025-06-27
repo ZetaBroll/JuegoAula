@@ -26,6 +26,7 @@ class Game:
                 pygame.quit()
                 quit() #fecha a janela e encerra o pygame
             else:
+                
                 pass
             
             
