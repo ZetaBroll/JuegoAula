@@ -33,13 +33,6 @@ class Level:
         clock = pygame.time.Clock()  # Create a clock to control the frame rate
         while True:
             clock.tick(60)  # Limit the frame rate to 60 FPS
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                if event.type == EVENT_ENEMY:
-                    choice = random.choice(('Enemy1', 'Enemy2'))  # Randomly choose an enemy type to spawn
-                    self.entity_list.append(EntityFactory.get_entity(choice))  # Add the chosen enemy to the entity list
             for ent in self.entity_list:
                 self.window.blit(source=ent.surf, dest=ent.rect)
                 ent.move()
@@ -47,6 +40,21 @@ class Level:
                     shoot = ent.shoot()
                     if shoot is not None:  # Check if the shoot method returned a shot entity
                         self.entity_list.append(shoot)  # If the entity is a player or enemy, call its shoot method to handle shooting logic
+                if ent.name == 'Player1':
+                    self.level_text(14, f'Player1 - Health: {ent.health} | Score: {ent.score} ' , C_GREEN, (10,25))  # Display Player1's health in green
+                if ent.name == 'Player2':
+                    self.level_text(14, f'Player2 - Health: {ent.health} | Score: {ent.score} ' , C_CYAN, (10, 45))
+
+            
+
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == EVENT_ENEMY:
+                    choice = random.choice(('Enemy1', 'Enemy2'))  # Randomly choose an enemy type to spawn
+                    self.entity_list.append(EntityFactory.get_entity(choice))  # Add the chosen enemy to the entity list
 
 
 
@@ -54,10 +62,7 @@ class Level:
 
              #printed text --- HUD DO JOGO ---
              
-            if ent.name == 'Player1':
-                self.level_text(14, f'Player1 - Health: {ent.health} | Score: {ent.score} ' , C_GREEN, (10,25))  # Display Player1's health in green
-            if ent.name == 'Player2':
-                self.level_text(14, f'Player2 - Health: {ent.health} | Score: {ent.score} ' , C_CYAN, (10, 45))
+            
 
             self.level_text(14, f'{self.name} - Timeout:{self.timeout / 1000 :.1f}s', C_WHITE, (10, 5)) #tempo de duração da fase
             self.level_text(14, f'fps: {clock.get_fps() :.0f}', C_WHITE, (10, WIN_HEIGHT - 35))  # Display the current FPS
