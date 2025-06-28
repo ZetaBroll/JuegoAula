@@ -6,7 +6,7 @@ import random
 import sys
 from tkinter.font import Font
 import pygame
-from code.Const import C_WHITE, EVENT_ENEMY, MENU_OPTION, SPAWN_TIME, WIN_HEIGHT
+from code.Const import C_CYAN, C_GREEN, C_WHITE, ENTITY_HEALTH, EVENT_ENEMY, MENU_OPTION, SPAWN_TIME, WIN_HEIGHT
 from code.enemy import Enemy
 from code.entity import Entity
 from code.entityFactory import EntityFactory
@@ -52,10 +52,17 @@ class Level:
 
 
 
-             #printed text
+             #printed text --- HUD DO JOGO ---
+             
+            if ent.name == 'Player1':
+                self.level_text(14, f'Player1 - Health: {ent.health} | Score: {ent.score} ' , C_GREEN, (10,25))  # Display Player1's health in green
+            if ent.name == 'Player2':
+                self.level_text(14, f'Player2 - Health: {ent.health} | Score: {ent.score} ' , C_CYAN, (10, 45))
+
             self.level_text(14, f'{self.name} - Timeout:{self.timeout / 1000 :.1f}s', C_WHITE, (10, 5)) #tempo de duração da fase
             self.level_text(14, f'fps: {clock.get_fps() :.0f}', C_WHITE, (10, WIN_HEIGHT - 35))  # Display the current FPS
             self.level_text(14, f'entidades: {len(self.entity_list)}', C_WHITE, (10, WIN_HEIGHT - 20)) #qntde de entidades criadas na tela
+        
             pygame.display.flip()  # Update the display
             
             
