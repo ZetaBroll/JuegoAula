@@ -8,12 +8,13 @@ from tkinter.font import Font
 import pygame
 from code.Const import C_WHITE, EVENT_ENEMY, MENU_OPTION, SPAWN_TIME, WIN_HEIGHT
 from code.entity import Entity
-from code.entityFactory import EntityFactory  # Importing the Entity class from entity module
+from code.entityFactory import EntityFactory
+from code.entityMediator import EntityMediator  # Importing the Entity class from entity module
 
 
 class Level:
     def __init__(self, window, name, game_mode):
-        self.timeout = 20000 #20seg
+        self.timeout = 20000 # Tempo de duração da fase em milissegundos (20 segundos)
         self.window = window
         self.name = name
         self.game_mode = game_mode #modo de jogo, 1 ou 2 jogadores
@@ -36,7 +37,7 @@ class Level:
                     sys.exit()
                 if event.type == EVENT_ENEMY:
                     choice = random.choice(('Enemy1', 'Enemy2'))  # Randomly choose an enemy type to spawn
-                    self.entity_list.append(EntityFactory.get_entity(choice))  # Spawn an enemy every 3 seconds
+                    self.entity_list.append(EntityFactory.get_entity(choice))  # Add the chosen enemy to the entity list
             for ent in self.entity_list:
                 self.window.blit(source=ent.surf, dest=ent.rect)
                 ent.move()
@@ -47,6 +48,11 @@ class Level:
             self.level_text(14, f'fps: {clock.get_fps() :.0f}', C_WHITE, (10, WIN_HEIGHT - 35))  # Display the current FPS
             self.level_text(14, f'entidades: {len(self.entity_list)}', C_WHITE, (10, WIN_HEIGHT - 20)) #qntde de entidades criadas na tela
             pygame.display.flip()  # Update the display
+            
+            
+            ## collisions ##
+            EntityMediator.verify_collision(entity_list=self.entity_list)  # Verify collisions between entities
+            EntityMediator.verify_health(entity_list=self.entity_list)
         pass
 
 
