@@ -7,9 +7,11 @@ import sys
 from tkinter.font import Font
 import pygame
 from code.Const import C_WHITE, EVENT_ENEMY, MENU_OPTION, SPAWN_TIME, WIN_HEIGHT
+from code.enemy import Enemy
 from code.entity import Entity
 from code.entityFactory import EntityFactory
-from code.entityMediator import EntityMediator  # Importing the Entity class from entity module
+from code.entityMediator import EntityMediator
+from code.player import Player  # Importing the Entity class from entity module
 
 
 class Level:
@@ -41,13 +43,24 @@ class Level:
             for ent in self.entity_list:
                 self.window.blit(source=ent.surf, dest=ent.rect)
                 ent.move()
-                
-             
-             #printed text   
+                if isinstance(ent, (Player, Enemy)):
+                    shoot = ent.shoot()
+                    if shoot is not None:  # Check if the shoot method returned a shot entity
+                        self.entity_list.append(shoot)  # If the entity is a player or enemy, call its shoot method to handle shooting logic
+
+
+
+
+
+             #printed text
             self.level_text(14, f'{self.name} - Timeout:{self.timeout / 1000 :.1f}s', C_WHITE, (10, 5)) #tempo de duração da fase
             self.level_text(14, f'fps: {clock.get_fps() :.0f}', C_WHITE, (10, WIN_HEIGHT - 35))  # Display the current FPS
             self.level_text(14, f'entidades: {len(self.entity_list)}', C_WHITE, (10, WIN_HEIGHT - 20)) #qntde de entidades criadas na tela
             pygame.display.flip()  # Update the display
+            
+            
+            
+            
             
             
             ## collisions ##
