@@ -12,6 +12,7 @@ C_CYAN = (0, 200, 200)
 
 ##  E  ##
 EVENT_ENEMY = pygame.USEREVENT + 1  # Custom event for spawning enemies
+EVENT_TIMEOUT = pygame.USEREVENT + 2  # Custom event for timeout
 ENTITY_SPEED = {
     "Level1Bg0": 0,
     "Level1Bg1": 1,
@@ -20,6 +21,13 @@ ENTITY_SPEED = {
     "Level1Bg4": 4,
     "Level1Bg5": 5,
     "Level1Bg6": 6,
+    'Level2Bg0': 0,
+    'Level2Bg1': 1,
+    'Level2Bg2': 2,
+    'Level2Bg3': 3,
+    'Level2Bg4': 4,
+    'Level2Bg5': 5,
+    'Level2Bg6': 6,
     "Player1": 5,
     "Player1Shot": 10,
     "Player2": 5,
@@ -77,9 +85,9 @@ ENTITY_DAMAGE = {
     'Player2': 1,
     'Player2Shot': 5,
     'Enemy1': 1,
-    'Enemy1Shot': 15,
+    'Enemy1Shot': 20,
     'Enemy2': 1,
-    'Enemy2Shot': 10,
+    'Enemy2Shot': 30,
 }
 
 ENTITY_SCORE = {
@@ -146,6 +154,10 @@ PLAYER_KEY_SHOOT = {'Player1': pygame.K_SPACE,
 
 ##  S  ##
 SPAWN_TIME = 2500
+
+##  T  ##
+TIMEOUT_STEP = 100  # Time in milliseconds to check for timeout
+TIMEOUT_LEVEL = 20000  # Time in milliseconds for the level to end (20 seconds)
 
 ##  W  ##
 WIN_WIDTH= 576

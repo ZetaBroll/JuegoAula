@@ -13,15 +13,22 @@ class Game:
         self.window = pygame.display.set_mode(size=(WIN_WIDTH, WIN_HEIGHT)) #tamanho da janela
         pygame.display.set_caption('MONTANHAS ATIRADEIRO') #titulo da janela
 
-    def run(self):    
+    def run(self, ):    
         while True: #deixa janela aberta enquanto true
             menu = Menu(self.window)
             menu_return = menu.run() #chama a classe menu e executa o metodo run
             
             
             if menu_return in [MENU_OPTION[0],MENU_OPTION[1],MENU_OPTION[2]]: #se o usuario escolher a opcao de novo jogo 1 jogador
-                level = Level(self.window, 'Level1', menu_return) #chama a classe level e passa a janela e o numero de jogadores
-                level_return = level.run() #chama o metodo run da classe level
+                player_score = [0, 0] #inicializa a pontuacao dos jogadores (1 e 2)
+                level = Level(self.window, 'Level1', menu_return, player_score) #chama a classe level e passa a janela e o numero de jogadores
+                level_return = level.run(player_score) #chama o metodo run da classe level
+                if level_return:
+                    level = Level(self.window, 'Level2', menu_return, player_score)  #chama a classe level e passa a janela e o numero de jogadores
+                    level_return = level.run(player_score) #chama o metodo run da classe level
+                    
+                
+                
             elif menu_return == MENU_OPTION[4]:
                 pygame.quit()
                 quit() #fecha a janela e encerra o pygame
