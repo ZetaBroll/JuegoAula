@@ -160,7 +160,7 @@ SPAWN_TIME = 2500
 
 ##  T  ##
 TIMEOUT_STEP = 100  # Time in milliseconds to check for timeout
-TIMEOUT_LEVEL = 5000  # Time in milliseconds for the level to end (20 seconds)
+TIMEOUT_LEVEL = 20000  # Time in milliseconds for the level to end (20 seconds)
 
 ##  W  ##
 WIN_WIDTH= 576

@@ -54,6 +54,7 @@ class Score:
                     if event.key == pygame.K_RETURN and len(name) == 4:
                         db_proxy.save({'name': name, 'score': score, 'date': get_fomatted_date() })
                         self.show()  # Show the score screen after saving
+                        return
                     elif event.key == pygame.K_BACKSPACE:  # If the backspace key is pressed, remove the last character
                         name = name[:-1]  # Remove the last character from the name
                     else:
@@ -73,14 +74,16 @@ class Score:
         self.window.blit(source=self.surf, dest=self.rect)
         self.score_text(48, 'TOP 10 SCORE', C_YELLOW, SCORE_POS['Title']) 
         self.score_text(20, 'NAME           SCORE                            DATE         ', C_YELLOW, SCORE_POS['Label'])
+        
         db_proxy = DBProxy('DBScore')
         list_score = db_proxy.retrieve_top10()  # Retrieve the top 10 scores from the database
         db_proxy.close()  # Close the database connection after retrieving scores
         
+        clock = pygame.time.Clock()
+        
         for player_score in list_score:
             id_, name, score, date = player_score  # Unpack the player score tuple
-            self.score_text(20, f'{name} {score :05d} {date}', C_YELLOW,
-                            SCORE_POS[list_score.index(player_score)])
+            self.score_text(25, f'                   {   name}               {score :06d}                       {date}', C_YELLOW, SCORE_POS[list_score.index(player_score)])
             
         while True:
             for event in pygame.event.get(): ## Checar eventos
@@ -100,10 +103,10 @@ class Score:
         
         ## FORMATAÇÃO DO TEXTO DO MENU ##
     def score_text(self, text_size: int, text: str, text_color: tuple, text_center_pos: tuple):
-        text_font: Font = pygame.font.SysFont(name="Gabriola", size=text_size)
-        text_surf: pygame.Surface = text_font.render(text, True, text_color).convert_alpha()
-        text_rect: pygame.Rect = text_surf.get_rect(center=text_center_pos)
-        self.window.blit(source=text_surf, dest=text_rect)
+        Font = pygame.font.SysFont(name="Gabriola", size=text_size)
+        Surface = Font.render(text, True, text_color).convert_alpha()
+        Rect = Surface.get_rect(center=text_center_pos)
+        self.window.blit(source=Surface, dest=Rect)
         
         
 def get_fomatted_date():  ## horario e data formatados ##
