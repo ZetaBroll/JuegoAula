@@ -83,7 +83,7 @@ class Score:
         
         for player_score in list_score:
             id_, name, score, date = player_score  # Unpack the player score tuple
-            self.score_text(25, f'                   {   name}               {score :06d}                       {date}', C_YELLOW, SCORE_POS[list_score.index(player_score)])
+            self.score_text(25, f'                            {   name}               {score :06d}                       {date}', C_YELLOW, SCORE_POS[list_score.index(player_score)])
             
         while True:
             for event in pygame.event.get(): ## Checar eventos
