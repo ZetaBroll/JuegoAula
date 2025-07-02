@@ -36,6 +36,7 @@ class Level:
     def run(self, player_score: list[int] ):
         pygame.mixer_music.load(f'asset/{self.name}.mp3')  # Load the background music for the level
         pygame.mixer_music.play(-1)  # Play the background music in an infinite loop
+        pygame.mixer_music.set_volume(0.3)
         clock = pygame.time.Clock()  # Create a clock to control the frame rate
         while True:
             clock.tick(60)  # Limit the frame rate to 60 FPS

@@ -27,6 +27,8 @@ class Score:
         while True:
             self.window.blit(source=self.surf, dest=self.rect)
             self.score_text(48, 'YOU WIN!!!', C_YELLOW, SCORE_POS['Title']) # Draw the title
+            text = 'Enter Player 1 name (4 Characters):'
+            score = player_score[0]
             if game_mode == MENU_OPTION[0]: #se o jogo for 1 jogador
                 score = player_score[0] #pega a pontuacao do jogador 1 no indice zero da lista
                 text = 'Enter Player 1 name (4 Characters):'
